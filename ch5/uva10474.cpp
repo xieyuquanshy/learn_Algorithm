@@ -1,5 +1,5 @@
-/* uva133
- * 2020/10/21
+/* uva10474
+ * 2020/10/24
  */
 #include <algorithm>
 #include <cmath>
@@ -14,7 +14,7 @@
 #include <vector>
 using namespace std;
 typedef long long ll;
-const int N = 1e5 + 10;
+const int N = 1e4 + 10;
 const int M = 1e5 + 10;
 const int INF = 0x3f3f3f3f;
 const double eps = 1e-5;
@@ -27,34 +27,27 @@ const double eps = 1e-5;
 #define _rep(i, a, b) for (int i = a; i <= b; ++i)
 #define txt
 
-bool vis[20];
-int n, k, m;
-void pos(int &p, int d, int c) {
-    while (c--) {
-    	while(evaluation);
-        do {
-            p = (p + d + n - 1) % n + 1;
-        } while (vis[p]);
-    }
-}
+int a[N];
 
 int main() {
 #ifdef txt
     freopen("in.txt", "r", stdin);
     freopen("out.txt", "w", stdout);
 #endif
-    while (~scanf("%d%d%d", &n, &k, &m) && n) {
-        mem(vis, 0);
-        int left = n, p1 = n, p2 = 1;
-        while (left) {
-            pos(p1, 1, k);
-            pos(p2, -1, m);
-            printf("%3d", p1), left--;
-            if (p1 != p2) printf("%3d", p2), left--;
-            vis[p1] = vis[p2] = 1;
-            if (left) printf(",");
+    int n, q, kase = 1;
+    while (~scanf("%d%d", &n, &q) && n) {
+        _for(i, 0, n) scanf("%d", a + i);
+        sort(a, a + n);
+        printf("CASE# %d:\n", kase++);
+        while (q--) {
+            int x;
+            scanf("%d", &x);
+            int p = lower_bound(a, a + n, x) - a;
+            if (a[p] == x)
+                printf("%d found at %d\n", x, p + 1);
+            else
+                printf("%d not found\n", x);
         }
-        puts("");
     }
     return 0;
 }

@@ -1,5 +1,5 @@
-/* uva133
- * 2020/10/21
+/* uva156
+ * 2020/10/24
  */
 #include <algorithm>
 #include <cmath>
@@ -27,15 +27,14 @@ const double eps = 1e-5;
 #define _rep(i, a, b) for (int i = a; i <= b; ++i)
 #define txt
 
-bool vis[20];
-int n, k, m;
-void pos(int &p, int d, int c) {
-    while (c--) {
-    	while(evaluation);
-        do {
-            p = (p + d + n - 1) % n + 1;
-        } while (vis[p]);
-    }
+vector<string> words;
+map<string, int> mp;
+
+string get(string s) {
+    string res = s;
+    _for(i, 0, sz(res)) { res[i] = tolower(res[i]); }
+    sort(all(res));
+    return res;
 }
 
 int main() {
@@ -43,18 +42,18 @@ int main() {
     freopen("in.txt", "r", stdin);
     freopen("out.txt", "w", stdout);
 #endif
-    while (~scanf("%d%d%d", &n, &k, &m) && n) {
-        mem(vis, 0);
-        int left = n, p1 = n, p2 = 1;
-        while (left) {
-            pos(p1, 1, k);
-            pos(p2, -1, m);
-            printf("%3d", p1), left--;
-            if (p1 != p2) printf("%3d", p2), left--;
-            vis[p1] = vis[p2] = 1;
-            if (left) printf(",");
-        }
-        puts("");
+    string s;
+    while (cin >> s) {
+        if (s[0] == '#') break;
+        string r = get(s);
+        mp[r]++;
+        words.pb(s);
     }
+    vector<string> ans;
+    _for(i, 0, sz(words)) {
+        if (mp[get(words[i])] == 1) ans.pb(words[i]);
+    }
+    sort(all(ans));
+    _for(i, 0, sz(ans)) cout << ans[i] << endl;
     return 0;
 }
